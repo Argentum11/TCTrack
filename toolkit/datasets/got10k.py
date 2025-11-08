@@ -88,12 +88,12 @@ def ca(dataset_root:str):
 
     video_data = []
     for jj in range(len(video_list)):
-        imgs=dataset_root+'/'+str(video_list[jj])
+        video_dir = dataset_root+'/'+str(video_list[jj])
         gt_file = dataset_root+'/'+str(video_list[jj])+'/groundtruth.txt'
         bbox=[]
         f = open(gt_file)               # 返回一个文件对象
         file= f.readlines()
-        li=os.listdir(imgs)
+        li=os.listdir(video_dir)
         li.sort()
         li=li[:-1]
         for ii in range(len(li)):
