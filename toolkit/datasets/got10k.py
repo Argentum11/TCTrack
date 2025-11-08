@@ -83,17 +83,17 @@ class GOTVideo(Video):
 
 def ca(dataset_root:str):
     
-    name_list=os.listdir(dataset_root)
-    name_list.sort()
-    a=len(name_list)
+    video_list = os.listdir(dataset_root)
+    video_list.sort()
+    a = len(video_list)
     b=[]
     for i in range(a):
-        b.append(name_list[i])
+        b.append(video_list[i])
     c=[]
     
     for jj in range(a):
-        imgs=dataset_root+'/'+str(name_list[jj])
-        gt_file = dataset_root+'/'+str(name_list[jj])+'/groundtruth.txt'
+        imgs=dataset_root+'/'+str(video_list[jj])
+        gt_file = dataset_root+'/'+str(video_list[jj])+'/groundtruth.txt'
         bbox=[]
         f = open(gt_file)               # 返回一个文件对象
         file= f.readlines()
@@ -101,7 +101,7 @@ def ca(dataset_root:str):
         li.sort()
         li=li[:-1]
         for ii in range(len(li)):
-            li[ii]=name_list[jj]+'/'+li[ii]
+            li[ii] = video_list[jj]+'/'+li[ii]
     
             try:
                 line = file[0].strip('\n').split(',')
@@ -129,7 +129,7 @@ def ca(dataset_root:str):
         if len(bbox)!=len(li):
             print (jj)
         f.close()
-        c.append({'attr':[],'gt_rect':bbox,'img_names':li,'init_rect':bbox[0],'video_dir':name_list[jj]})
+        c.append({'attr':[],'gt_rect':bbox,'img_names':li,'init_rect':bbox[0],'video_dir':video_list[jj]})
         
     d=dict(zip(b,c))
     
