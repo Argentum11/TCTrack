@@ -86,9 +86,6 @@ def ca(dataset_root:str):
     video_list = os.listdir(dataset_root)
     video_list.sort()
     a = len(video_list)
-    b=[]
-    for i in range(a):
-        b.append(video_list[i])
     c=[]
     
     for jj in range(a):
@@ -131,7 +128,7 @@ def ca(dataset_root:str):
         f.close()
         c.append({'attr':[],'gt_rect':bbox,'img_names':li,'init_rect':bbox[0],'video_dir':video_list[jj]})
         
-    d=dict(zip(b,c))
+    d = dict(zip(video_list, c))
     
     return d
 class GOT10kDataset(Dataset):
