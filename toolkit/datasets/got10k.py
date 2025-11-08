@@ -90,14 +90,13 @@ def ca(dataset_root:str):
     for jj in range(len(video_list)):
         video_dir = dataset_root+'/'+str(video_list[jj])
         video_dir_files = os.listdir(video_dir)
-        video_dir_files.sort()
-        video_dir_files = video_dir_files[:-1]
+        frame_files = sorted([file for file in video_dir_files if file.lower().endswith(('.jpg', '.jpeg', 'png'))])
         gt_file = dataset_root+'/'+str(video_list[jj])+'/groundtruth.txt'
         bbox=[]
         f = open(gt_file)               # 返回一个文件对象
         file= f.readlines()
-        for ii in range(len(video_dir_files)):
-            video_dir_files[ii] = video_list[jj]+'/'+video_dir_files[ii]
+        for ii in range(len(frame_files)):
+            frame_files[ii] = video_list[jj]+'/'+frame_files[ii]
     
             try:
                 line = file[0].strip('\n').split(',')
@@ -122,10 +121,10 @@ def ca(dataset_root:str):
                 line[3]=float(line[3])
             bbox.append(line)
             
-        if len(bbox)!=len(video_dir_files):
+        if len(bbox)!=len(frame_files):
             print (jj)
         f.close()
-        video_data.append({'attr':[],'gt_rect':bbox,'img_names':video_dir_files,'init_rect':bbox[0],'video_dir':video_list[jj]})
+        video_data.append({'attr':[],'gt_rect':bbox,'img_names':frame_files,'init_rect':bbox[0],'video_dir':video_list[jj]})
         
     d = dict(zip(video_list, video_data))
     
