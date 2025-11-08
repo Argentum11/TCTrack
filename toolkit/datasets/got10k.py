@@ -85,8 +85,8 @@ def ca(dataset_root:str):
     
     video_list = os.listdir(dataset_root)
     video_list.sort()
-    c=[]
-    
+
+    video_data = []
     for jj in range(len(video_list)):
         imgs=dataset_root+'/'+str(video_list[jj])
         gt_file = dataset_root+'/'+str(video_list[jj])+'/groundtruth.txt'
@@ -125,9 +125,9 @@ def ca(dataset_root:str):
         if len(bbox)!=len(li):
             print (jj)
         f.close()
-        c.append({'attr':[],'gt_rect':bbox,'img_names':li,'init_rect':bbox[0],'video_dir':video_list[jj]})
+        video_data.append({'attr':[],'gt_rect':bbox,'img_names':li,'init_rect':bbox[0],'video_dir':video_list[jj]})
         
-    d = dict(zip(video_list, c))
+    d = dict(zip(video_list, video_data))
     
     return d
 class GOT10kDataset(Dataset):
