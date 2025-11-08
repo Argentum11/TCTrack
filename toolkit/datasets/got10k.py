@@ -83,7 +83,6 @@ class GOTVideo(Video):
 
 def ca(dataset_root:str):
     
-    txt='groundtruth_rect.txt'
     name_list=os.listdir(dataset_root)
     name_list.sort()
     a=len(name_list)
@@ -94,9 +93,9 @@ def ca(dataset_root:str):
     
     for jj in range(a):
         imgs=dataset_root+'/'+str(name_list[jj])
-        txt=dataset_root+'/'+str(name_list[jj])+'/groundtruth.txt'
+        gt_file = dataset_root+'/'+str(name_list[jj])+'/groundtruth.txt'
         bbox=[]
-        f = open(txt)               # 返回一个文件对象
+        f = open(gt_file)               # 返回一个文件对象
         file= f.readlines()
         li=os.listdir(imgs)
         li.sort()
