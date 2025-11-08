@@ -80,13 +80,11 @@ class GOTVideo(Video):
             else:
                 print(traj_file)
         self.tracker_names = list(self.pred_trajs.keys())
-def ca():
-    
 
+def ca(dataset_root:str):
     
-    path='/home/tj-v4r/Dataset/GOTtest_data'
     txt='groundtruth_rect.txt'
-    name_list=os.listdir(path)
+    name_list=os.listdir(dataset_root)
     name_list.sort()
     a=len(name_list)
     b=[]
@@ -95,8 +93,8 @@ def ca():
     c=[]
     
     for jj in range(a):
-        imgs=path+'/'+str(name_list[jj])
-        txt=path+'/'+str(name_list[jj])+'/groundtruth.txt'
+        imgs=dataset_root+'/'+str(name_list[jj])
+        txt=dataset_root+'/'+str(name_list[jj])+'/groundtruth.txt'
         bbox=[]
         f = open(txt)               # 返回一个文件对象
         file= f.readlines()
@@ -148,7 +146,7 @@ class GOT10kDataset(Dataset):
         super(GOT10kDataset, self).__init__(name, dataset_root)
         # with open(os.path.join(dataset_root, name+'.json'), 'r') as f:
         #     meta_data = json.load(f)
-        meta_data=ca()
+        meta_data = ca(dataset_root=dataset_root)
         # load videos
         pbar = tqdm(meta_data.keys(), desc='loading '+name, ncols=100)
         self.videos = {}
