@@ -91,39 +91,30 @@ def ca(dataset_root:str):
         video_dir = dataset_root+'/'+str(video_list[jj])
         video_dir_files = os.listdir(video_dir)
         frame_files = sorted([file for file in video_dir_files if file.lower().endswith(('.jpg', '.jpeg', 'png'))])
-        gt_file = dataset_root+'/'+str(video_list[jj])+'/groundtruth.txt'
-        bbox=[]
-        f = open(gt_file)               # 返回一个文件对象
-        file= f.readlines()
+        
         for ii in range(len(frame_files)):
             frame_files[ii] = video_list[jj]+'/'+frame_files[ii]
     
-            try:
-                line = file[0].strip('\n').split(',')
-            except:
-               line = file[0].strip('\n').split('\t')
+        # --- read bounding boxes ---
+        bbox = []
+        gt_file = dataset_root+'/'+str(video_list[jj])+'/groundtruth.txt'
+        with open(gt_file, 'r') as f:
+            gt_lines = f.readlines()
 
-            try:
-                line[0]=int(line[0])
-            except:
-                line[0]=float(line[0])
-            try:
-                line[1]=int(line[1])
-            except:
-                line[1]=float(line[1])
-            try:
-                line[2]=int(line[2])
-            except:
-                line[2]=float(line[2])
-            try:
-                line[3]=int(line[3])
-            except:
-                line[3]=float(line[3])
-            bbox.append(line)
+        for line in gt_lines:
+            line = line.strip().replace('\t', ',')
+            # Skip empty lines
+            if not line:
+                continue
+            # Parse floats
+            try:    
+                coords = list(map(float, line.split(',')))
+                bbox.append(coords)
+            except ValueError:
+                continue
             
         if len(bbox)!=len(frame_files):
             print (jj)
-        f.close()
         video_data.append({'attr':[],'gt_rect':bbox,'img_names':frame_files,'init_rect':bbox[0],'video_dir':video_list[jj]})
         
     d = dict(zip(video_list, video_data))
