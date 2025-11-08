@@ -85,10 +85,9 @@ def ca(dataset_root:str):
     
     video_list = os.listdir(dataset_root)
     video_list.sort()
-    a = len(video_list)
     c=[]
     
-    for jj in range(a):
+    for jj in range(len(video_list)):
         imgs=dataset_root+'/'+str(video_list[jj])
         gt_file = dataset_root+'/'+str(video_list[jj])+'/groundtruth.txt'
         bbox=[]
