@@ -116,10 +116,9 @@ def ca(dataset_root:str):
         if len(bbox)!=len(frame_files):
             print(i)
         video_data.append({'attr':[],'gt_rect':bbox,'img_names':frame_files,'init_rect':bbox[0],'video_dir':video_list[i]})
-        
-    d = dict(zip(video_list, video_data))
-    
-    return d
+          
+    return dict(zip(video_list, video_data))
+
 class GOT10kDataset(Dataset):
     """
     Args:
