@@ -81,7 +81,7 @@ class GOTVideo(Video):
                 print(traj_file)
         self.tracker_names = list(self.pred_trajs.keys())
 
-def ca(dataset_root:str):
+def load_got10k_metadata(dataset_root:str):
     
     video_list = os.listdir(dataset_root)
     video_list.sort()
@@ -130,7 +130,7 @@ class GOT10kDataset(Dataset):
         super(GOT10kDataset, self).__init__(name, dataset_root)
         # with open(os.path.join(dataset_root, name+'.json'), 'r') as f:
         #     meta_data = json.load(f)
-        meta_data = ca(dataset_root=dataset_root)
+        meta_data = load_got10k_metadata(dataset_root=dataset_root)
         # load videos
         pbar = tqdm(meta_data.keys(), desc='loading '+name, ncols=100)
         self.videos = {}
