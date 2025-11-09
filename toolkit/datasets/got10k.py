@@ -89,6 +89,8 @@ def load_got10k_metadata(dataset_root:str):
     video_data = []
     for i, video in enumerate(video_list):
         video_dir = dataset_root+'/'+str(video)
+        if not os.path.isdir(video_dir):
+            continue
         video_dir_files = os.listdir(video_dir)
         frame_files = sorted([file for file in video_dir_files if file.lower().endswith(('.jpg', '.jpeg', 'png'))])
         
