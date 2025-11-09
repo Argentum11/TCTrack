@@ -87,17 +87,17 @@ def load_got10k_metadata(dataset_root:str):
     video_list.sort()
 
     video_data = []
-    for i in range(len(video_list)):
-        video_dir = dataset_root+'/'+str(video_list[i])
+    for i, video in enumerate(video_list):
+        video_dir = dataset_root+'/'+str(video)
         video_dir_files = os.listdir(video_dir)
         frame_files = sorted([file for file in video_dir_files if file.lower().endswith(('.jpg', '.jpeg', 'png'))])
         
         for j in range(len(frame_files)):
-            frame_files[j] = video_list[i]+'/'+frame_files[j]
+            frame_files[j] = video+'/'+frame_files[j]
     
         # --- read bounding boxes ---
         bbox = []
-        gt_file = dataset_root+'/'+str(video_list[i])+'/groundtruth.txt'
+        gt_file = dataset_root+'/'+str(video)+'/groundtruth.txt'
         with open(gt_file, 'r') as f:
             gt_lines = f.readlines()
 
@@ -115,7 +115,7 @@ def load_got10k_metadata(dataset_root:str):
             
         if len(bbox)!=len(frame_files):
             print(i)
-        video_data.append({'attr':[],'gt_rect':bbox,'img_names':frame_files,'init_rect':bbox[0],'video_dir':video_list[i]})
+        video_data.append({'attr':[],'gt_rect':bbox,'img_names':frame_files,'init_rect':bbox[0],'video_dir':video})
           
     return dict(zip(video_list, video_data))
 
